@@ -33,6 +33,16 @@ body {
   background-color: var(--white);
 }
 
+a {
+  font-size: var(--app-font-size-sm);
+  color: var(--app-color-1);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 .header {
   height: var(--header-height);
 }
@@ -75,6 +85,10 @@ body {
   outline: none;
 }
 
+.cars-view {
+  margin-bottom: var(--size-lg);
+}
+
 .cars-view-heading {
   font-size: var(--app-font-size-lg);
   font-weight: var(--app-font-weight-lg);
@@ -115,12 +129,30 @@ body {
   margin-bottom: var(--size-md);
 }
 
-.cars-info a {
+.pagination {
+  margin-bottom: 0px;
+}
+
+.pagination .disabled {
   font-size: var(--app-font-size-sm);
+}
+
+.pagination .page-link {
+  border: none;
   color: var(--app-color-1);
   text-decoration: none;
 }
 
-.cars-info a:hover {
+.pagination .page-link:hover {
   text-decoration: underline;
+  background-color: var(--white);
+}
+
+.pagination .page-info .page-link {
+  color: var(--app-color-3);
+  cursor: auto;
+}
+
+.pagination .page-info .page-link:hover {
+  text-decoration: none;
 }

@@ -1,26 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Pagination } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { CarsFilter } from '..';
 import CarFilterModel from '../../models/CarFilterModel';
 import CarQueryParamsModel from '../../models/CarQueryParamsModel';
-import CarsListModel, { CarModel } from '../../models/CarsListModel';
+import CarsListModel from '../../models/CarsListModel';
 
 import { useGetListOfCarsQuery } from '../../services/carsApi';
 
+const { First, Last, Prev, Next, Item } = Pagination;
+
 const CarsList = () => {
+
+  const [pageCount, setPageCount] = useState<number>(1);
 
   const carQueryParams: CarQueryParamsModel = {
     manufacturer: '',
     color: '',
     sort: 'asc',
-    page: 1
-  };
-
-  const carListInitialData = {
-    cars: [],
-    totalCarsCount: 0,
-    totalPageCount: 0
+    page: pageCount
   };
 
   const [carFilter, setCarFilter] = useState<CarFilterModel>({
@@ -28,28 +26,27 @@ const CarsList = () => {
     manufacturer: ''
   });
 
-  const [cars, setCars] = useState<CarsListModel>(carListInitialData);
-
   const { data: carsList, refetch } = useGetListOfCarsQuery({
-    ...carQueryParams, 
-    color: carFilter.color, 
-    manufacturer: carFilter.manufacturer
+    ...carQueryParams,
+    color: carFilter.color,
+    manufacturer: carFilter.manufacturer,
+    page: pageCount
   });
 
   useEffect(() => {
     refetch();
-  }, [carFilter]);
+  }, [carFilter, pageCount]);
 
   return (
     <>
       <Row>
         <Col md={4}>
-          <CarsFilter carFilter={carFilter} setCarFilter={setCarFilter}/>
+          <CarsFilter carFilter={carFilter} setCarFilter={setCarFilter} />
         </Col>
         <Col md={8}>
           <div className='cars-view'>
             <h3 className='cars-view-heading'>Available Cars</h3>
-            <p className='cars-view-info'>Showing {carsList?.cars?.length} of {carsList?.totalPageCount} results</p>
+            <p className='cars-view-info'>Showing {carsList?.cars?.length} of {carsList?.totalCarsCount} results</p>
             <div className='cars-view-list'>
               {carsList?.cars?.map(car => (
                 <div className='cars-view-list-info' key={car.stockNumber}>
@@ -65,6 +62,20 @@ const CarsList = () => {
               ))}
             </div>
           </div>
+
+          <Pagination className='justify-content-center'>
+            <First onClick={() => setPageCount(1)}>First</First>
+            <Prev disabled={pageCount === 1} onClick={() => {
+              const prevPage = pageCount - 1;
+              setPageCount(prevPage);
+            }}>Previous</Prev>
+            <Item className='page-info'>Page {pageCount} of {carsList?.totalPageCount}</Item>
+            <Next disabled={pageCount === carsList?.totalPageCount } onClick={() => {
+              const nextPage = pageCount + 1;
+              setPageCount(nextPage);
+            }}>Next</Next>
+            <Last onClick={() => setPageCount(carsList?.totalPageCount ?? 1)}>Last</Last>
+          </Pagination>
         </Col>
       </Row>
     </>

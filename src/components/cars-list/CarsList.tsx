@@ -34,7 +34,7 @@ const CarsList = () => {
 
   useEffect(() => {
     refetch();
-  }, [carFilter, pageCount]);
+  }, [carFilter, pageCount, refetch]);
 
   return (
     <>

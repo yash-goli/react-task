@@ -10,8 +10,8 @@ function App() {
     <div className="App">
       <Header />
       <main className='main'>
-        <div className='routes'>
-          <Container>
+        <div className='routes h-100'>
+          <Container className='h-100'>
             <Router>
               <Routes>
                 <Route path='/' element={<HomePage />}></Route>

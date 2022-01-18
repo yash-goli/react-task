@@ -156,3 +156,7 @@ a:hover {
 .pagination .page-info .page-link:hover {
   text-decoration: none;
 }
+
+.page-not-found p, .page-not-found a {
+  font-size: var(--app-font-size-lg);
+}

@@ -1,6 +1,6 @@
 :root {
-  --app-color-1: #d37324;
-  --app-color-2: #ea7f28;
+  --app-color-1: #ea7f28;
+  --app-color-2: #d37324;
   --app-color-3: #4a4a4a;
   --app-color-4: #ededed;
   --white: #ffffff;
@@ -16,8 +16,14 @@
   --app-font-size-lg: 18px;
   --app-font-size-xl: 32px;
 
+  --app-font-weight-lg: 900;
+  --app-font-weight-md: 700;
+
   --header-height: 80px;
   --footer-height: 80px;
+
+  --btn-width: 128px;
+  --btn-heigth: 32px;
 }
 
 body {
@@ -44,4 +50,36 @@ body {
 .footer {
   height: var(--footer-height);
   border-top: 2px solid var(--app-color-4);
+}
+
+.main {
+  height: calc(100vh - (var(--footer-height) + var(--header-height)));
+  padding: var(--size-lg);
+}
+
+.card .card-body {
+  padding: var(--size-lg);
+}
+
+.btn {
+  background-color: var(--app-color-1);
+  width: var(--btn-width);
+  border: none;
+  padding-top: calc(var(--size-sm) / 2);
+  padding-bottom: calc(var(--size-sm) / 2);
+}
+
+.btn:active, .btn:hover {
+  background-color: var(--app-color-2);
+}
+
+.cars-list-heading {
+  font-size: var(--app-font-size-lg);
+  font-weight: var(--app-font-weight-lg);
+  margin-bottom: var(--size-md);
+}
+
+.cars-list-info {
+  font-size: var(--app-font-size-lg);
+  margin-bottom: var(--size-md);
 }

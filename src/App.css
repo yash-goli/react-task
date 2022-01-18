@@ -26,6 +26,7 @@
   --btn-heigth: 32px;
 
   --details-wrapper: 800px;
+  --details-image-height: 400px;
 }
 
 body {
@@ -85,10 +86,13 @@ a:hover {
   border-top: 2px solid var(--app-color-4);
 }
 
-.main {
+.min-content-height {
   height: calc(100vh - (var(--footer-height) + var(--header-height)));
+}
+
+.main {
+  min-height: calc(100vh - (var(--footer-height) + var(--header-height)));
   padding: var(--size-lg);
-  overflow: auto;
 }
 
 .card .card-body {
@@ -188,4 +192,10 @@ a:hover {
   width: var(--details-wrapper);
   height: 100%;
   margin: 0 auto;
+}
+
+.car-details-image {
+  background-color: var(--app-color-4);
+  width: 100%;
+  height: var(--details-image-height);
 }

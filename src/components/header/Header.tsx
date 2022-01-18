@@ -10,7 +10,7 @@ const Header = () => {
     <header className='header'>
       <Navbar expand='md'>
         <Container>
-          <Brand href='#home'>
+          <Brand href='/'>
             <img
               alt='Auto1 Group'
               src={logo}

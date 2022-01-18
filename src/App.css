@@ -24,6 +24,8 @@
 
   --btn-width: 128px;
   --btn-heigth: 32px;
+
+  --details-wrapper: 800px;
 }
 
 body {
@@ -41,6 +43,27 @@ a {
 
 a:hover {
   text-decoration: underline;
+  color: var(--app-color-1);
+}
+
+.fs-sm {
+  font-size: var(--app-font-size-sm) !important;
+}
+
+.fs-md {
+  font-size: var(--app-font-size-md) !important;
+}
+
+.fs-xs {
+  font-size: var(--app-font-size-xs) !important;
+}
+
+.fs-lg {
+  font-size: var(--app-font-size-lg) !important;
+}
+
+.fs-xl {
+  font-size: var(--app-font-size-xl) !important;
 }
 
 .header {
@@ -159,4 +182,10 @@ a:hover {
 
 .page-not-found p, .page-not-found a {
   font-size: var(--app-font-size-lg);
+}
+
+.details-wrapper {
+  width: var(--details-wrapper);
+  height: 100%;
+  margin: 0 auto;
 }

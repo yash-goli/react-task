@@ -11,6 +11,7 @@ type CarsFilterProps = {
 };
 
 const { Body } = Card;
+
 const { Group, Label, Select } = Form;
 
 const CarsFilter = ({ carFilter, setCarFilter }: CarsFilterProps) => {

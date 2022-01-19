@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Row, Col, Pagination, Container } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { CarsFilter, Loader } from '..';
+import { CarsFilter, Loader, CarsListView } from '..';
+import carsApi from '../../services/carServiceApiHandler';
 import CarFilterModel from '../../models/CarFilterModel';
 import CarQueryParamsModel from '../../models/CarQueryParamsModel';
-
-import { useGetListOfCarsQuery } from '../../services/carsApi';
+import CarColorsModel from '../../models/CarColorsModel';
+import CarManufacturersModel from '../../models/CarManufacturersModel';
+import CarsListModel from '../../models/CarsListModel';
 
 const { First, Last, Prev, Next, Item } = Pagination;
 
-const CarsList = () => {
+const CarsSearchView = () => {
 
   const [pageCount, setPageCount] = useState<number>(1);
 
@@ -25,20 +26,50 @@ const CarsList = () => {
     manufacturer: ''
   });
 
-  const { data: carsList, isFetching, refetch } = useGetListOfCarsQuery({
-    ...carQueryParams,
-    color: carFilter.color,
-    manufacturer: carFilter.manufacturer,
-    page: pageCount
-  });
+  const [isFetching, setIsFetching] = useState<boolean>(false);
 
-  const setCarFilterData = (carFilter: CarFilterModel) => {
+  const [colors, setColors] = useState<CarColorsModel>({colors: []});
+
+  const [manufacturers, setManufacturers] = useState<CarManufacturersModel>({manufacturers: []});
+
+  const [carsList, setCarsList] = useState<CarsListModel>({cars: [], totalCarsCount: 0, totalPageCount: 0});
+
+  const setCarFilterData = useCallback((carFilter: CarFilterModel) => {
       setCarFilter(carFilter);
-  };
+  }, []);
 
   useEffect(() => {
-    refetch();
-  }, [carFilter, pageCount, refetch]);
+    const getFilterData = async () => {
+      try {
+        const [carColors, carManufacturers] =  await Promise.all([carsApi.getCarColors(), carsApi.getCarManufacturers()]);
+        setColors(carColors);
+        setManufacturers(carManufacturers);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getFilterData();
+  }, []);
+
+  useEffect(() => {
+    const getCarsList = async () => {
+      try {
+        setIsFetching(true);
+        const listOfCarsAvailable =  await carsApi.getListOfCars({
+          ...carQueryParams,
+          color: carFilter.color,
+          manufacturer: carFilter.manufacturer,
+          page: pageCount
+        });
+        setIsFetching(false);
+        setCarsList(listOfCarsAvailable);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getCarsList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [carFilter, pageCount]);
 
   return (
     <>
@@ -46,27 +77,14 @@ const CarsList = () => {
         <Container className='h-100'>
           <Row>
             <Col md={4}>
-              <CarsFilter setCarFilter={setCarFilterData} />
+              <CarsFilter colors={colors} manufacturers={manufacturers} setCarFilter={setCarFilterData} />
             </Col>
             <Col md={8}>
               {isFetching ? <><Loader /><Loader /><Loader /></> : <>
                 <div className='cars-view'>
                   <h3 className='cars-view-heading'>Available Cars</h3>
                   <p className='cars-view-info'>Showing {carsList?.cars?.length} of {carsList?.totalCarsCount} results</p>
-                  <div className='cars-view-list'>
-                    {carsList?.cars?.map(car => (
-                      <div className='cars-view-list-info' key={car.stockNumber}>
-                        <div className='cars-picture'>
-                          <img src={car.pictureUrl} alt='Car' />
-                        </div>
-                        <div className='cars-info'>
-                          <h3>{car.manufacturerName} {car.modelName}</h3>
-                          <p>Stock # {car.stockNumber} - {car.mileage.number} {car.mileage.unit} - {car.fuelType} - {car.color}</p>
-                          <Link to={`/cars/${car.stockNumber}`}>View details</Link>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                  <CarsListView cars={carsList?.cars}/>
                 </div>
 
                 <Pagination className='justify-content-center'>
@@ -91,4 +109,4 @@ const CarsList = () => {
   )
 };
 
-export default CarsList;
+export default CarsSearchView;

@@ -127,7 +127,7 @@ a:hover {
   margin-bottom: var(--size-md);
 }
 
-.cars-view-list-info {
+.cars-list-view-info {
   display: flex;
   padding: var(--size-md);
   border: 1px solid var(--app-color-4);

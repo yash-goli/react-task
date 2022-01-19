@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import { useGetCarDetailsQuery } from '../../services/carsApi';
 
@@ -8,9 +8,15 @@ const { Body } = Card;
 
 const CarDetails = () => {
 
+  const navigate = useNavigate();
+
   const { stockNumber } = useParams<string>();
 
-  const { data: carDetails } = useGetCarDetailsQuery(stockNumber || '');
+  const { data: carDetails, error } = useGetCarDetailsQuery(stockNumber || '');
+
+  if (error) {
+    navigate('/page-not-found');
+  }
 
   return (
     <>

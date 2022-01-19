@@ -9,7 +9,7 @@ const Loader = () => (
     viewBox="0 0 830 94"
     backgroundColor="#ededed"
     foregroundColor="#ededed"
-    style={{border: '1px solid #ededed'}}
+    style={{border: '1px solid #ededed', marginBottom: '12px'}}
     animate={true}
   >
     <rect x={144} y={10} rx="0" ry="0" width="410" height={24} /> 

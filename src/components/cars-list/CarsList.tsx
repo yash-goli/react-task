@@ -45,7 +45,7 @@ const CarsList = () => {
               <CarsFilter carFilter={carFilter} setCarFilter={setCarFilter} />
             </Col>
             <Col md={8}>
-              {isFetching ? <Loader /> : <>
+              {isFetching ? <><Loader /><Loader /><Loader /></> : <>
                 <div className='cars-view'>
                   <h3 className='cars-view-heading'>Available Cars</h3>
                   <p className='cars-view-info'>Showing {carsList?.cars?.length} of {carsList?.totalCarsCount} results</p>

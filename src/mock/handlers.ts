@@ -2,7 +2,7 @@ import { rest } from 'msw';
 import CarColorsModel from '../models/CarColorsModel';
 import CarManufacturersModel from '../models/CarManufacturersModel';
 import CarsListModel from '../models/CarsListModel';
-import { baseUrl } from '../services/carsApi';
+import { baseUrl } from '../services/carServiceApiHandler';
 
 const getCarColors = rest.get(`${baseUrl}/colors`, (req, res, ctx) => {
   const response: CarColorsModel = {

@@ -3,9 +3,12 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Card, Form, Button } from 'react-bootstrap';
 import CarFilterModel from '../../models/CarFilterModel';
 
-import { useGetCarColorsQuery, useGetCarManufacturersQuery } from '../../services/carsApi';
+import CarColorsModel from '../../models/CarColorsModel';
+import CarManufacturersModel from '../../models/CarManufacturersModel';
 
 type CarsFilterProps = {
+  colors: CarColorsModel,
+  manufacturers: CarManufacturersModel,
   setCarFilter: (carFilter: CarFilterModel) => void
 };
 
@@ -13,12 +16,8 @@ const { Body } = Card;
 
 const { Group, Label, Select } = Form;
 
-const CarsFilter = ({ setCarFilter }: CarsFilterProps) => {
+const CarsFilter = ({ colors, manufacturers, setCarFilter }: CarsFilterProps) => {
   const { register, handleSubmit } = useForm<CarFilterModel>();
-
-  const { data: colors } = useGetCarColorsQuery('');
-
-  const { data: manufacturers } = useGetCarManufacturersQuery('');
 
   const onSubmit: SubmitHandler<CarFilterModel> = data => setCarFilter(data);
 

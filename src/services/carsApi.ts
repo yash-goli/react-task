@@ -9,7 +9,7 @@ const headers = {
   'Content-Type': 'application/json'
 };
 
-const baseUrl = 'https://auto1-mock-server.herokuapp.com/api';
+export const baseUrl = 'https://auto1-mock-server.herokuapp.com/api';
 
 const createRequest = (url: string, params?: {[key: string]: any}) => ({ url, params, headers });
 
@@ -18,7 +18,11 @@ export const carsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl }),
   endpoints: (builder) => ({
     getCarColors: builder.query<CarColorsModel, string>({
-      query: () => createRequest('/colors')
+      query: () => createRequest('/colors'),
+      transformResponse: (res: {data: CarColorsModel}) => {
+        console.log(res);
+        return res.data;
+      }
     }),
     getCarManufacturers: builder.query<CarManufacturersModel, string>({
       query: () => createRequest('/manufacturers')

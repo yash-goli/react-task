@@ -16,5 +16,5 @@ export class CarModel {
 
 class MileageModel {
   number!: number;
-  unit!: number;
+  unit!: string;
 }

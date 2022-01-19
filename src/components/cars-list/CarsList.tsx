@@ -32,6 +32,10 @@ const CarsList = () => {
     page: pageCount
   });
 
+  const setCarFilterData = (carFilter: CarFilterModel) => {
+      setCarFilter(carFilter);
+  };
+
   useEffect(() => {
     refetch();
   }, [carFilter, pageCount, refetch]);
@@ -42,7 +46,7 @@ const CarsList = () => {
         <Container className='h-100'>
           <Row>
             <Col md={4}>
-              <CarsFilter carFilter={carFilter} setCarFilter={setCarFilter} />
+              <CarsFilter setCarFilter={setCarFilterData} />
             </Col>
             <Col md={8}>
               {isFetching ? <><Loader /><Loader /><Loader /></> : <>

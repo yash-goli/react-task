@@ -16,7 +16,7 @@ describe('CarsListView', () => {
           'unit': 'km'
         },
         'fuelType': 'Petrol',
-        'pictureUrl': 'https://auto1-js-task-api--mufasa71.repl.co/images/car.svg'
+        'pictureUrl': 'https://localhost:3000/images/car.svg'
       },
       {
         'stockNumber': 85296,
@@ -28,7 +28,7 @@ describe('CarsListView', () => {
           'unit': 'km'
         },
         'fuelType': 'Diesel',
-        'pictureUrl': 'https://auto1-js-task-api--mufasa71.repl.co/images/car.svg'
+        'pictureUrl': 'https://localhost:3000/images/car.svg'
       },
       {
         'stockNumber': 85491,
@@ -40,7 +40,7 @@ describe('CarsListView', () => {
           'unit': 'km'
         },
         'fuelType': 'Petrol',
-        'pictureUrl': 'https://auto1-js-task-api--mufasa71.repl.co/images/car.svg'
+        'pictureUrl': 'https://localhost:3000/images/car.svg'
       },
       {
         'stockNumber': 34928,
@@ -52,7 +52,7 @@ describe('CarsListView', () => {
           'unit': 'km'
         },
         'fuelType': 'Diesel',
-        'pictureUrl': 'https://auto1-js-task-api--mufasa71.repl.co/images/car.svg'
+        'pictureUrl': 'https://localhost:3000/images/car.svg'
       },
       {
         'stockNumber': 91838,
@@ -64,7 +64,7 @@ describe('CarsListView', () => {
           'unit': 'km'
         },
         'fuelType': 'Diesel',
-        'pictureUrl': 'https://auto1-js-task-api--mufasa71.repl.co/images/car.svg'
+        'pictureUrl': 'https://localhost:3000/images/car.svg'
       }
     ],
     totalPageCount: 1,

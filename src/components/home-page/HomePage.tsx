@@ -7,7 +7,7 @@ const HomePage = () => {
       <main className='main min-content-height'>
         <Container className='h-100'>
           <div className='d-flex justify-content-center align-items-center h-100'>
-            <h1>Welcome to Auto1</h1>
+            <h1>Welcome to React Task</h1>
           </div>
         </Container>
       </main>

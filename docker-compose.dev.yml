@@ -2,8 +2,8 @@ version: "3.8"
 
 services:
   app:
-    container_name: auto1-task-dev
-    image: auto1-task-dev
+    container_name: react-task-dev
+    image: react-task-dev
     build:
       context: .
       target: development

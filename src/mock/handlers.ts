@@ -81,7 +81,7 @@ const getCars = rest.get(`${baseUrl}/cars`, (req, res, ctx) => {
           'unit': 'km'
         },
         'fuelType': 'Petrol',
-        'pictureUrl': 'https://auto1-js-task-api--mufasa71.repl.co/images/car.svg'
+        'pictureUrl': 'https://localhost:3000/images/car.svg'
       },
       {
         'stockNumber': 85296,
@@ -93,7 +93,7 @@ const getCars = rest.get(`${baseUrl}/cars`, (req, res, ctx) => {
           'unit': 'km'
         },
         'fuelType': 'Diesel',
-        'pictureUrl': 'https://auto1-js-task-api--mufasa71.repl.co/images/car.svg'
+        'pictureUrl': 'https://localhost:3000/images/car.svg'
       },
       {
         'stockNumber': 85491,
@@ -105,7 +105,7 @@ const getCars = rest.get(`${baseUrl}/cars`, (req, res, ctx) => {
           'unit': 'km'
         },
         'fuelType': 'Petrol',
-        'pictureUrl': 'https://auto1-js-task-api--mufasa71.repl.co/images/car.svg'
+        'pictureUrl': 'https://localhost:3000/images/car.svg'
       },
       {
         'stockNumber': 34928,
@@ -117,7 +117,7 @@ const getCars = rest.get(`${baseUrl}/cars`, (req, res, ctx) => {
           'unit': 'km'
         },
         'fuelType': 'Diesel',
-        'pictureUrl': 'https://auto1-js-task-api--mufasa71.repl.co/images/car.svg'
+        'pictureUrl': 'https://localhost:3000/images/car.svg'
       },
       {
         'stockNumber': 91838,
@@ -129,7 +129,7 @@ const getCars = rest.get(`${baseUrl}/cars`, (req, res, ctx) => {
           'unit': 'km'
         },
         'fuelType': 'Diesel',
-        'pictureUrl': 'https://auto1-js-task-api--mufasa71.repl.co/images/car.svg'
+        'pictureUrl': 'https://localhost:3000/images/car.svg'
       },
       {
         'stockNumber': 58146,
@@ -141,7 +141,7 @@ const getCars = rest.get(`${baseUrl}/cars`, (req, res, ctx) => {
           'unit': 'km'
         },
         'fuelType': 'Diesel',
-        'pictureUrl': 'https://auto1-js-task-api--mufasa71.repl.co/images/car.svg'
+        'pictureUrl': 'https://localhost:3000/images/car.svg'
       },
       {
         'stockNumber': 98212,
@@ -153,7 +153,7 @@ const getCars = rest.get(`${baseUrl}/cars`, (req, res, ctx) => {
           'unit': 'km'
         },
         'fuelType': 'Petrol',
-        'pictureUrl': 'https://auto1-js-task-api--mufasa71.repl.co/images/car.svg'
+        'pictureUrl': 'https://localhost:3000/images/car.svg'
       },
       {
         'stockNumber': 88044,
@@ -165,7 +165,7 @@ const getCars = rest.get(`${baseUrl}/cars`, (req, res, ctx) => {
           'unit': 'km'
         },
         'fuelType': 'Diesel',
-        'pictureUrl': 'https://auto1-js-task-api--mufasa71.repl.co/images/car.svg'
+        'pictureUrl': 'https://localhost:3000/images/car.svg'
       },
       {
         'stockNumber': 72593,
@@ -177,7 +177,7 @@ const getCars = rest.get(`${baseUrl}/cars`, (req, res, ctx) => {
           'unit': 'km'
         },
         'fuelType': 'Diesel',
-        'pictureUrl': 'https://auto1-js-task-api--mufasa71.repl.co/images/car.svg'
+        'pictureUrl': 'https://localhost:3000/images/car.svg'
       },
       {
         'stockNumber': 57204,
@@ -189,7 +189,7 @@ const getCars = rest.get(`${baseUrl}/cars`, (req, res, ctx) => {
           'unit': 'km'
         },
         'fuelType': 'Diesel',
-        'pictureUrl': 'https://auto1-js-task-api--mufasa71.repl.co/images/car.svg'
+        'pictureUrl': 'https://localhost:3000/images/car.svg'
       }
     ],
     'totalPageCount': 3,
@@ -210,7 +210,7 @@ const getCarDetails = rest.get(`${baseUrl}/cars/12345`, (req, res, ctx) => {
         'unit': 'km'
       },
       'fuelType': 'Diesel',
-      'pictureUrl': 'https://auto1-js-task-api--mufasa71.repl.co/images/car.svg'
+      'pictureUrl': 'https://localhost:3000/images/car.svg'
     }
   };
   return res(ctx.json(response));

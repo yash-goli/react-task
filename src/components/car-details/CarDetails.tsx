@@ -35,6 +35,9 @@ const CarDetails = () => {
       }
     }
     getCarsList();
+    return () => {
+      setCarDetails(initialCarDetails);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stockNumber]);
 
@@ -47,7 +50,7 @@ const CarDetails = () => {
             <Row className='m-0'>
               {!isFetching && <>
                 <Col md={8} className='p-0' role='article'>
-                  <h2 role='heading' className='mb-4'>{carDetails?.car?.manufacturerName} {carDetails?.car?.modelName}</h2>
+                  <h2 className='mb-4'>{carDetails?.car?.manufacturerName} {carDetails?.car?.modelName}</h2>
                   <p className='mb-4 fs-lg'>Stock # {carDetails?.car?.stockNumber} - {carDetails?.car?.mileage?.number} {carDetails?.car?.mileage?.unit} - {carDetails?.car?.fuelType} - {carDetails?.car?.color}</p>
                   <p>
                     This car is currently available and can be delivered as soon as tomorrow morning. Please be aware that delivery times shown in this page are not definitive and may change due to weather conditions.

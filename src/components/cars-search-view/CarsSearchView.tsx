@@ -49,6 +49,10 @@ const CarsSearchView = () => {
       }
     }
     getFilterData();
+    return () => {
+      setColors({colors: []});
+      setManufacturers({manufacturers: []});
+    };
   }, []);
 
   useEffect(() => {
@@ -68,6 +72,9 @@ const CarsSearchView = () => {
       }
     }
     getCarsList();
+    return () => {
+      setCarsList({cars: [], totalCarsCount: 0, totalPageCount: 0});
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [carFilter, pageCount]);
 
@@ -83,7 +90,7 @@ const CarsSearchView = () => {
               {isFetching ? <><Loader /><Loader /><Loader /></> : <>
                 <div className='cars-view'>
                   <h3 className='cars-view-heading'>Available Cars</h3>
-                  <p className='cars-view-info'>Showing {carsList?.cars?.length} of {carsList?.totalCarsCount} results</p>
+                  <p className='cars-view-info' data-testid='carsCount'>Showing {carsList?.cars?.length} of {carsList?.totalCarsCount} results</p>
                   <CarsListView cars={carsList?.cars}/>
                 </div>
 
@@ -93,7 +100,7 @@ const CarsSearchView = () => {
                     const prevPage = pageCount - 1;
                     setPageCount(prevPage);
                   }}>Previous</Prev>
-                  <Item className='page-info'>Page {pageCount} of {carsList?.totalPageCount}</Item>
+                  <Item className='page-info' data-testid='carsPageCount'>Page {pageCount} of {carsList?.totalPageCount}</Item>
                   <Next disabled={pageCount === carsList?.totalPageCount} onClick={() => {
                     const nextPage = pageCount + 1;
                     setPageCount(nextPage);

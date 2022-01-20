@@ -16,7 +16,7 @@ const CarsListView = ({cars}: CarsViewProps) => {
               <img src={car.pictureUrl} alt='Car' />
             </div>
             <div className='cars-info' role='banner'>
-              <h3 role='heading'>{car.manufacturerName} {car.modelName}</h3>
+              <h3>{car.manufacturerName} {car.modelName}</h3>
               <p data-testid='carSpecs'>Stock # {car.stockNumber} - {car.mileage.number} {car.mileage.unit} - {car.fuelType} - {car.color}</p>
               <Link to={`/cars/${car.stockNumber}`} role='link'>View details</Link>
             </div>

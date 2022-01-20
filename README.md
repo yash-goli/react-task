@@ -1,4 +1,4 @@
-# Getting Started with Auto1 Task
+# Getting Started with React Task
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

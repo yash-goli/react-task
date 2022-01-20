@@ -52,7 +52,7 @@ const CarsFilter = ({ colors, manufacturers, setCarFilter }: CarsFilterProps) =>
               </Select>
             </Group>
 
-            <Button data-testid='filter' variant='primary' type='submit' className='float-end'>
+            <Button data-testid='filter' variant='primary' type='submit' className='float-end' role='button'>
               Filter
             </Button>
           </Form>

@@ -1,5 +1,6 @@
 import { rest } from 'msw';
 import CarColorsModel from '../models/CarColorsModel';
+import CarDetailsModel from '../models/CarDetailsModel';
 import CarManufacturersModel from '../models/CarManufacturersModel';
 import CarsListModel from '../models/CarsListModel';
 import { baseUrl } from '../services/carServiceApiHandler';
@@ -197,4 +198,26 @@ const getCars = rest.get(`${baseUrl}/cars`, (req, res, ctx) => {
   return res(ctx.json(response));
 });
 
-export const handlers = [getCarColors, getCarManufacturers, getCars];
+const getCarDetails = rest.get(`${baseUrl}/cars/12345`, (req, res, ctx) => {
+  const response: CarDetailsModel = {
+    car: {
+      'stockNumber': 12345,
+      'manufacturerName': 'Fiat',
+      'modelName': 'Croma',
+      'color': 'white',
+      'mileage': {
+        'number': 126592,
+        'unit': 'km'
+      },
+      'fuelType': 'Diesel',
+      'pictureUrl': 'https://auto1-js-task-api--mufasa71.repl.co/images/car.svg'
+    }
+  };
+  return res(ctx.json(response));
+});
+
+const getCarDetailsFail = rest.get(`${baseUrl}/cars/23456`, (req, res, ctx) => {
+  return res(ctx.status(500));
+});
+
+export const handlers = [getCarColors, getCarManufacturers, getCars, getCarDetails, getCarDetailsFail];

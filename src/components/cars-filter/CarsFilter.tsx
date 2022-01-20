@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Card, Form, Button } from 'react-bootstrap';
 import CarFilterModel from '../../models/CarFilterModel';
 
@@ -17,15 +17,21 @@ const { Body } = Card;
 const { Group, Label, Select } = Form;
 
 const CarsFilter = ({ colors, manufacturers, setCarFilter }: CarsFilterProps) => {
-  const { register, handleSubmit } = useForm<CarFilterModel>();
+  const { register, getValues } = useForm<CarFilterModel>();
 
-  const onSubmit: SubmitHandler<CarFilterModel> = data => setCarFilter(data);
+  const onSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    setCarFilter({
+      color: getValues('color'),
+      manufacturer: getValues('manufacturer')
+    });
+  };
 
   return (
     <>
       <Card data-testid='carsFilter'>
         <Body>
-          <Form onSubmit={handleSubmit(onSubmit)}>
+          <Form onSubmit={onSubmit}>
             <Group className='mb-4'>
               <Label htmlFor='carColors'>Color</Label>
               <Select defaultValue='' data-testid='carColors' id='carColors' {...register('color')}>
@@ -46,7 +52,7 @@ const CarsFilter = ({ colors, manufacturers, setCarFilter }: CarsFilterProps) =>
               </Select>
             </Group>
 
-            <Button variant='primary' type='submit' className='float-end'>
+            <Button data-testid='filter' variant='primary' type='submit' className='float-end'>
               Filter
             </Button>
           </Form>

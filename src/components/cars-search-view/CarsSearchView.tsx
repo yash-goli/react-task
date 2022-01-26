@@ -1,82 +1,25 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useReducer } from 'react';
 import { Row, Col, Pagination, Container } from 'react-bootstrap';
 import { CarsFilter, Loader, CarsListView } from '..';
-import carsApi from '../../services/carServiceApiHandler';
 import CarFilterModel from '../../models/CarFilterModel';
-import CarQueryParamsModel from '../../models/CarQueryParamsModel';
-import CarColorsModel from '../../models/CarColorsModel';
-import CarManufacturersModel from '../../models/CarManufacturersModel';
-import CarsListModel from '../../models/CarsListModel';
+import pageCountReducer, { PaginationEnum } from '../../reducer/pageCountReducer';
+import { useColors, useManufacturers, useCars } from '../../hooks';
 
 const { First, Last, Prev, Next, Item } = Pagination;
 
-const CarsSearchView = () => {
-
-  const [pageCount, setPageCount] = useState<number>(1);
-
-  const carQueryParams: CarQueryParamsModel = {
-    manufacturer: '',
-    color: '',
-    sort: 'asc',
-    page: pageCount
-  };
-
+const CarsSearchView = () => {  
   const [carFilter, setCarFilter] = useState<CarFilterModel>({
     color: '',
     manufacturer: ''
   });
 
-  const [isFetching, setIsFetching] = useState<boolean>(false);
+  const [page, dispatch] = useReducer(pageCountReducer, {count: 1});
 
-  const [colors, setColors] = useState<CarColorsModel>({colors: []});
+  const colors = useColors();
 
-  const [manufacturers, setManufacturers] = useState<CarManufacturersModel>({manufacturers: []});
+  const manufacturers = useManufacturers();
 
-  const [carsList, setCarsList] = useState<CarsListModel>({cars: [], totalCarsCount: 0, totalPageCount: 0});
-
-  const setCarFilterData = useCallback((carFilter: CarFilterModel) => {
-      setCarFilter(carFilter);
-  }, []);
-
-  useEffect(() => {
-    const getFilterData = async () => {
-      try {
-        const [carColors, carManufacturers] =  await Promise.all([carsApi.getCarColors(), carsApi.getCarManufacturers()]);
-        setColors(carColors);
-        setManufacturers(carManufacturers);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getFilterData();
-    return () => {
-      setColors({colors: []});
-      setManufacturers({manufacturers: []});
-    };
-  }, []);
-
-  useEffect(() => {
-    const getCarsList = async () => {
-      try {
-        setIsFetching(true);
-        const listOfCarsAvailable =  await carsApi.getListOfCars({
-          ...carQueryParams,
-          color: carFilter.color,
-          manufacturer: carFilter.manufacturer,
-          page: pageCount
-        });
-        setIsFetching(false);
-        setCarsList(listOfCarsAvailable);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getCarsList();
-    return () => {
-      setCarsList({cars: [], totalCarsCount: 0, totalPageCount: 0});
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [carFilter, pageCount]);
+  const [carsList, isFetching] = useCars(carFilter, page.count);
 
   return (
     <>
@@ -84,28 +27,22 @@ const CarsSearchView = () => {
         <Container className='h-100'>
           <Row>
             <Col md={4}>
-              <CarsFilter colors={colors} manufacturers={manufacturers} setCarFilter={setCarFilterData} />
+              <CarsFilter colors={colors} manufacturers={manufacturers} setCarFilter={setCarFilter} />
             </Col>
             <Col md={8}>
               {isFetching ? <><Loader /><Loader /><Loader /></> : <>
                 <div className='cars-view'>
                   <h3 className='cars-view-heading'>Available Cars</h3>
                   <p className='cars-view-info' data-testid='carsCount'>Showing {carsList?.cars?.length} of {carsList?.totalCarsCount} results</p>
-                  <CarsListView cars={carsList?.cars}/>
+                  <CarsListView cars={carsList?.cars} />
                 </div>
 
                 <Pagination className='justify-content-center'>
-                  <First onClick={() => setPageCount(1)}>First</First>
-                  <Prev disabled={pageCount === 1} onClick={() => {
-                    const prevPage = pageCount - 1;
-                    setPageCount(prevPage);
-                  }}>Previous</Prev>
-                  <Item className='page-info' data-testid='carsPageCount'>Page {pageCount} of {carsList?.totalPageCount}</Item>
-                  <Next disabled={pageCount === carsList?.totalPageCount} onClick={() => {
-                    const nextPage = pageCount + 1;
-                    setPageCount(nextPage);
-                  }}>Next</Next>
-                  <Last onClick={() => setPageCount(carsList?.totalPageCount ?? 1)}>Last</Last>
+                  <First onClick={() => dispatch({type: PaginationEnum.FIRST})}>First</First>
+                  <Prev disabled={page.count === 1} onClick={() => {dispatch({type: PaginationEnum.PREVIOUS})}}>Previous</Prev>
+                  <Item className='page-info' data-testid='carsPageCount'>Page {page.count} of {carsList?.totalPageCount}</Item>
+                  <Next disabled={page.count === carsList?.totalPageCount} onClick={() => {dispatch({type: PaginationEnum.NEXT})}}>Next</Next>
+                  <Last onClick={() => {dispatch({type: PaginationEnum.LAST, lastPage: carsList?.totalPageCount})}}>Last</Last>
                 </Pagination>
               </>}
             </Col>

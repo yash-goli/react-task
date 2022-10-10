@@ -1,4 +1,3 @@
-import axios, { AxiosError } from 'axios';
 import CarColorsModel from '../models/CarColorsModel';
 import CarDetailsModel from '../models/CarDetailsModel';
 import CarManufacturersModel from '../models/CarManufacturersModel';
@@ -13,41 +12,49 @@ const handler = () => {
     'Content-Type': 'application/json'
   };
 
+  function api<T>(url: string, params?: any): Promise<T> {
+    const queryParams = new URLSearchParams(params);
+    const urlWithParams = queryParams ? `${url}?${queryParams.toString()}` : url;
+    
+    return fetch(urlWithParams, { headers }).then(response => {
+        if (!response.ok) {
+          throw new Error(response.statusText)
+        }
+        return response.json() as Promise<T>
+      });
+  }
+
   return {
-    getCarColors: async (): Promise<CarColorsModel> => {
+    getCarColors: (): Promise<CarColorsModel> => {
       try {
-        const response = await axios.get<CarColorsModel>(`${baseUrl}/colors`, {headers});
-        return response.data;
+        return api<CarColorsModel>(`${baseUrl}/colors`);
       } catch (e) {
-        console.log((e as AxiosError).response);
-        throw (e as AxiosError).response;
+        console.log(e);
+        throw e;
       }
     },
     getCarManufacturers: async (): Promise<CarManufacturersModel> => {
       try {
-        const response = await axios.get<CarManufacturersModel>(`${baseUrl}/manufacturers`, {headers});
-        return response.data;
+        return api<CarManufacturersModel>(`${baseUrl}/manufacturers`);
       } catch (e) {
-        console.log((e as AxiosError).response);
-        throw (e as AxiosError).response;
+        console.log(e);
+        throw e;
       }
     },
     getListOfCars: async (params: CarQueryParamsModel): Promise<CarsListModel> => {
       try {
-        const response = await axios.get<CarsListModel>(`${baseUrl}/cars`, {headers, params});
-        return response.data;
+        return api<CarsListModel>(`${baseUrl}/cars`, params);
       } catch (e) {
-        console.log((e as AxiosError).response);
-        throw (e as AxiosError).response;
+        console.log(e);
+        throw e;
       }
     },
     getCarDetails: async (stockNumber: string): Promise<CarDetailsModel> => {
       try {
-        const response = await axios.get<CarDetailsModel>(`${baseUrl}/cars/${stockNumber}`, {headers});
-        return response.data;
+        return api<CarDetailsModel>(`${baseUrl}/cars/${stockNumber}`);
       } catch (e) {
-        console.log((e as AxiosError).response);
-        throw (e as AxiosError).response;
+        console.log(e);
+        throw e;
       }
     }
   }

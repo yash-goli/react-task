@@ -3,13 +3,16 @@ import { createRoot } from 'react-dom/client';
 import 'typeface-roboto';
 import './index.css';
 import App from './App';
+import { RecoilRoot } from 'recoil';
 import reportWebVitals from './reportWebVitals';
 
 const root = createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
   <React.StrictMode>
-    <App />
+    <RecoilRoot>
+      <App />
+    </RecoilRoot>
   </React.StrictMode>
 );
 

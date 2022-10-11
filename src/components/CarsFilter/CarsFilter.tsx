@@ -4,21 +4,21 @@ import { Card, Form, Button } from 'react-bootstrap';
 import CarFilterModel from '../../models/CarFilterModel';
 
 import { useColors, useManufacturers } from '../../hooks';
-
-type CarsFilterProps = {
-  setCarFilter: (carFilter: CarFilterModel) => void
-};
+import { useSetRecoilState } from 'recoil';
+import { carFilterAtom } from '../../recoil/carFilter';
 
 const { Body } = Card;
 
 const { Group, Label, Select } = Form;
 
-const CarsFilter = ({ setCarFilter }: CarsFilterProps) => {
+const CarsFilter = () => {
   const { register, getValues } = useForm<CarFilterModel>();
 
   const colors = useColors();
 
   const manufacturers = useManufacturers();
+
+  const setCarFilter = useSetRecoilState(carFilterAtom);
 
   const onSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();

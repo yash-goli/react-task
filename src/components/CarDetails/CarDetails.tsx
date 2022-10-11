@@ -1,53 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-import { useParams, useNavigate } from 'react-router-dom';
-import CarDetailsModel from '../../models/CarDetailsModel';
-import { CarModel } from '../../models/CarsListModel';
-
-import carsApi from '../../services/carServiceApiHandler';
+import { useParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { carDetailsSelector } from '../../recoil/carDetails';
 
 const { Body } = Card;
 
 const CarDetails = () => {
-
-  const navigate = useNavigate();
-
-  const initialCarDetails: CarDetailsModel = {
-    car: new CarModel()
-  };
-
   const { stockNumber } = useParams<string>();
 
-  const [isFetching, setIsFetching] = useState<boolean>(true);
-
-  const [carDetails, setCarDetails] = useState<CarDetailsModel>(initialCarDetails);
-
-  useEffect(() => {
-    const getCarsList = async () => {
-      try {
-        const carInfo = await carsApi.getCarDetails(stockNumber || '');
-        setIsFetching(false);
-        setCarDetails(carInfo);
-      } catch (error) {
-        console.error(error);
-        navigate('/page-not-found');
-      }
-    }
-    getCarsList();
-    return () => {
-      setCarDetails(initialCarDetails);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stockNumber]);
+  const carDetails = useRecoilValue(carDetailsSelector(stockNumber));
 
   return (
     <>
       <section className='car-details-image'></section>
-      <main className='main'>
-        <div className='details-wrapper'>
-          <Container className='p-0'>
-            <Row className='m-0'>
-              {!isFetching && <>
+        <main className='main'>
+          <div className='details-wrapper'>
+            <Container className='p-0'>
+              <Row className='m-0'>
                 <Col md={8} className='p-0' role='article'>
                   <h2 className='mb-4'>{carDetails?.car?.manufacturerName} {carDetails?.car?.modelName}</h2>
                   <p className='mb-4 fs-lg'>Stock # {carDetails?.car?.stockNumber} - {carDetails?.car?.mileage?.number} {carDetails?.car?.mileage?.unit} - {carDetails?.car?.fuelType} - {carDetails?.car?.color}</p>
@@ -65,11 +35,10 @@ const CarDetails = () => {
                     </Body>
                   </Card>
                 </Col>
-              </>}
-            </Row>
-          </Container>
-        </div>
-      </main>
+              </Row>
+            </Container>
+          </div>
+        </main>
     </>
   )
 };

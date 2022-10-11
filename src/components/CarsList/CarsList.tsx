@@ -6,7 +6,7 @@ type CarsViewProps = {
   cars: CarModel[]
 };
 
-const CarsListView = ({cars}: CarsViewProps) => {
+const CarsList = ({cars}: CarsViewProps) => {
   return (
     <>
       <div className='cars-list-view' role='list'>
@@ -27,4 +27,4 @@ const CarsListView = ({cars}: CarsViewProps) => {
   )
 };
 
-export default React.memo(CarsListView);
+export default CarsList;

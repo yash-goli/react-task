@@ -21,6 +21,7 @@ const Header = () => {
           <Toggle aria-controls='basic-navbar-nav' />
           <Collapse id='basic-navbar-nav' className='justify-content-end'>
             <Nav>
+              <Nav.Link href='/cars'>Cars</Nav.Link>
               <Nav.Link href='#home'>Purchase</Nav.Link>
               <Nav.Link href='#home'>My Orders</Nav.Link>
               <Nav.Link href='#link'>Sell</Nav.Link>

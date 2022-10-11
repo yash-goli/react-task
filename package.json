@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "typeface-roboto": "^1.1.13",
     "bootstrap": "^5.2.2",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
@@ -11,6 +10,8 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.37.0",
     "react-router-dom": "^6.4.2",
+    "recoil": "^0.7.5",
+    "typeface-roboto": "^1.1.13",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {

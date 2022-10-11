@@ -20,9 +20,10 @@ describe('Header', () => {
     const { container } = render(<Header />);
     const nav = container.querySelectorAll('.navbar-nav');
     expect(nav.length).toEqual(1);
-    expect(nav.item(0).children.length).toEqual(3);
-    expect(nav.item(0).children[0].textContent).toEqual('Purchase');
-    expect(nav.item(0).children[1].textContent).toEqual('My Orders');
-    expect(nav.item(0).children[2].textContent).toEqual('Sell');
+    expect(nav.item(0).children.length).toEqual(4);
+    expect(nav.item(0).children[0].textContent).toEqual('Cars');
+    expect(nav.item(0).children[1].textContent).toEqual('Purchase');
+    expect(nav.item(0).children[2].textContent).toEqual('My Orders');
+    expect(nav.item(0).children[3].textContent).toEqual('Sell');
   });
 });

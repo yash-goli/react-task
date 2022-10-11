@@ -1,10 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { CarsSearchView } from '..';
+import { CarsSearch } from '..';
 import '@testing-library/jest-dom/extend-expect';
 import { MemoryRouter } from 'react-router-dom';
 
 import { mockColors, mockManufacturers, mockCars } from '../../mock/mock';
+import { RecoilRoot } from 'recoil';
 
 jest.mock('../../hooks', () => ({
   useColors: () => mockColors,
@@ -14,7 +15,7 @@ jest.mock('../../hooks', () => ({
 
 describe('CarsSearchView', () => {
   test('render filter component in serach view', async () => {
-    const { findByTestId } = render(<MemoryRouter><CarsSearchView/></MemoryRouter>);
+    const { findByTestId } = render(<MemoryRouter><RecoilRoot><CarsSearch/></RecoilRoot></MemoryRouter>);
     expect(await findByTestId('carsFilter')).toBeInTheDocument();
     expect(await findByTestId('carColors')).toBeInTheDocument();
     expect(await findByTestId('carManufacturers')).toBeInTheDocument();

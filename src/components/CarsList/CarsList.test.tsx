@@ -1,7 +1,7 @@
 import { MemoryRouter } from 'react-router-dom';
 import { render } from '@testing-library/react';
 import CarsListModel from '../../models/CarsListModel';
-import { CarsListView } from '..';
+import { CarsList } from '..';
 
 describe('CarsListView', () => {
   const carsList: CarsListModel = {
@@ -72,13 +72,13 @@ describe('CarsListView', () => {
   };
 
   test('render cars list view component', async () => {
-    const { findAllByRole, findByRole } = render(<MemoryRouter><CarsListView  cars={carsList.cars}/></MemoryRouter>);
+    const { findAllByRole, findByRole } = render(<MemoryRouter><CarsList  cars={carsList.cars}/></MemoryRouter>);
     expect(await findByRole('list')).toBeInTheDocument();
     expect(await (await findAllByRole('listitem')).length).toEqual(5);
   });
 
   test('check the info in the cars list view component', async () => {
-    const { findAllByRole, findByRole } = render(<MemoryRouter><CarsListView  cars={carsList.cars}/></MemoryRouter>);
+    const { findAllByRole, findByRole } = render(<MemoryRouter><CarsList  cars={carsList.cars}/></MemoryRouter>);
     const banner = await (await findAllByRole('banner'))[2];
     expect(banner?.querySelector('h3')?.textContent).toContain(`${carsList.cars[2].manufacturerName} ${carsList.cars[2].modelName}`);
     expect(banner?.querySelector('p')?.textContent).toContain(`Stock # ${carsList.cars[2].stockNumber} - ${carsList.cars[2].mileage.number} ${carsList.cars[2].mileage.unit} - ${carsList.cars[2].fuelType} - ${carsList.cars[2].color}`);

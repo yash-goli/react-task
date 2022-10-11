@@ -18,14 +18,13 @@ const CarDetails = () => {
 
   const { stockNumber } = useParams<string>();
 
-  const [isFetching, setIsFetching] = useState<boolean>(false);
+  const [isFetching, setIsFetching] = useState<boolean>(true);
 
   const [carDetails, setCarDetails] = useState<CarDetailsModel>(initialCarDetails);
 
   useEffect(() => {
     const getCarsList = async () => {
       try {
-        setIsFetching(true);
         const carInfo = await carsApi.getCarDetails(stockNumber || '');
         setIsFetching(false);
         setCarDetails(carInfo);

@@ -1,11 +1,16 @@
 import React from 'react';
-import { render, screen, act, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { CarsSearchView } from '..';
-import CarColorsModel from '../../models/CarColorsModel';
-import CarManufacturersModel from '../../models/CarManufacturersModel';
 import '@testing-library/jest-dom/extend-expect';
-import CarFilterModel from '../../models/CarFilterModel';
 import { MemoryRouter } from 'react-router-dom';
+
+import { mockColors, mockManufacturers, mockCars } from '../../mock/mock';
+
+jest.mock('../../hooks', () => ({
+  useColors: () => mockColors,
+  useManufacturers: () => mockManufacturers,
+  useCars: () => [mockCars, true]
+}));
 
 describe('CarsSearchView', () => {
   test('render filter component in serach view', async () => {

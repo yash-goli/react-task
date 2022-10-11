@@ -1,9 +1,9 @@
 export { default as Header } from './Header/Header';
 export { default as Footer } from './Footer/Footer';
 export { default as HomePage } from './HomePage/HomePage';
-export { default as CarsSearchView } from './CarsSearchView/CarsSearchView';
+export { default as CarsSearchView } from './CarsSearch/CarsSearch';
 export { default as CarsFilter } from './CarsFilter/CarsFilter';
 export { default as CarDetails } from './CarDetails/CarDetails';
 export { default as PageNotFound } from './PageNotFound/PageNotFound';
 export { default as Loader } from './Loader/Loader';
-export { default as CarsListView } from './CarsListView/CarsListView';
+export { default as CarsListView } from './CarsList/CarsList';

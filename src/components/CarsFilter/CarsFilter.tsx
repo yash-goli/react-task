@@ -3,12 +3,9 @@ import { useForm } from "react-hook-form";
 import { Card, Form, Button } from 'react-bootstrap';
 import CarFilterModel from '../../models/CarFilterModel';
 
-import CarColorsModel from '../../models/CarColorsModel';
-import CarManufacturersModel from '../../models/CarManufacturersModel';
+import { useColors, useManufacturers } from '../../hooks';
 
 type CarsFilterProps = {
-  colors: CarColorsModel,
-  manufacturers: CarManufacturersModel,
   setCarFilter: (carFilter: CarFilterModel) => void
 };
 
@@ -16,8 +13,12 @@ const { Body } = Card;
 
 const { Group, Label, Select } = Form;
 
-const CarsFilter = ({ colors, manufacturers, setCarFilter }: CarsFilterProps) => {
+const CarsFilter = ({ setCarFilter }: CarsFilterProps) => {
   const { register, getValues } = useForm<CarFilterModel>();
+
+  const colors = useColors();
+
+  const manufacturers = useManufacturers();
 
   const onSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();

@@ -7,11 +7,12 @@ const { Brand, Toggle, Collapse } = Navbar;
 
 const Header = () => {
   return (
-    <header className='header'>
+    <header className='header' data-testid="header">
       <Navbar expand='md'>
         <Container>
           <Brand href='/'>
             <img
+              data-testid="logo"
               alt='Auto1 Group'
               src={logo}
               height='30'
@@ -20,7 +21,7 @@ const Header = () => {
           </Brand>
           <Toggle aria-controls='basic-navbar-nav' />
           <Collapse id='basic-navbar-nav' className='justify-content-end'>
-            <Nav>
+            <Nav data-testid="navbar-nav">
               <Nav.Link href='/cars'>Cars</Nav.Link>
               <Nav.Link href='#home'>Purchase</Nav.Link>
               <Nav.Link href='#home'>My Orders</Nav.Link>

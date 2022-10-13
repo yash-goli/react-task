@@ -1,20 +1,19 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { Footer } from '..';
 
 describe('Footer', () => {
-  test('renders footer component', () => {
-    const { container } = render(<Footer />);
-    const footer = container.querySelectorAll('.footer');
-    expect(footer.length).toEqual(1);
+  test('renders footer component', async () => {
+    render(<Footer />);
+    const footer = await screen.findByTestId('footer');
+    expect(footer).toBeInTheDocument();
   });
 
-  test('renders footer text in component', () => {
+  test('renders footer text in component', async () => {
     const date = new Date();
     const msg = `© AUTO1 Group ${date.getFullYear()}`;
-    const { container } = render(<Footer />);
-    const footer = container.querySelectorAll('.footer');
-    expect(footer.length).toEqual(1);
-    expect(footer.item(0).textContent).toEqual(msg);
+    render(<Footer />);
+    const footer = await screen.findByTestId('footer');
+    expect(footer.textContent).toEqual(msg);
   });
 });

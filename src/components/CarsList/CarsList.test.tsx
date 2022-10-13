@@ -1,5 +1,5 @@
 import { MemoryRouter } from 'react-router-dom';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import CarsListModel from '../../models/CarsListModel';
 import { CarsList } from '..';
 
@@ -72,16 +72,16 @@ describe('CarsListView', () => {
   };
 
   test('render cars list view component', async () => {
-    const { findAllByRole, findByRole } = render(<MemoryRouter><CarsList  cars={carsList.cars}/></MemoryRouter>);
-    expect(await findByRole('list')).toBeInTheDocument();
-    expect(await (await findAllByRole('listitem')).length).toEqual(5);
+    render(<MemoryRouter><CarsList  cars={carsList.cars}/></MemoryRouter>);
+    expect(await screen.findByRole('list')).toBeInTheDocument();
+    expect(await (await screen.findAllByRole('listitem')).length).toEqual(5);
   });
 
   test('check the info in the cars list view component', async () => {
-    const { findAllByRole, findByRole } = render(<MemoryRouter><CarsList  cars={carsList.cars}/></MemoryRouter>);
-    const banner = await (await findAllByRole('banner'))[2];
-    expect(banner?.querySelector('h3')?.textContent).toContain(`${carsList.cars[2].manufacturerName} ${carsList.cars[2].modelName}`);
-    expect(banner?.querySelector('p')?.textContent).toContain(`Stock # ${carsList.cars[2].stockNumber} - ${carsList.cars[2].mileage.number} ${carsList.cars[2].mileage.unit} - ${carsList.cars[2].fuelType} - ${carsList.cars[2].color}`);
-    expect(banner?.querySelector('a')?.href).toContain(`/cars/${carsList.cars[2].stockNumber}`);
+    render(<MemoryRouter><CarsList  cars={carsList.cars}/></MemoryRouter>);
+    const banner = await (await screen.findAllByRole('banner'))[2];
+    expect(banner?.childNodes[0]?.textContent).toContain(`${carsList.cars[2].manufacturerName} ${carsList.cars[2].modelName}`);
+    expect(banner?.childNodes[1]?.textContent).toContain(`Stock # ${carsList.cars[2].stockNumber} - ${carsList.cars[2].mileage.number} ${carsList.cars[2].mileage.unit} - ${carsList.cars[2].fuelType} - ${carsList.cars[2].color}`);
+    expect((banner?.childNodes[2] as HTMLAnchorElement)?.href).toContain(`/cars/${carsList.cars[2].stockNumber}`);
   });
 });

@@ -1,6 +1,6 @@
-import { MemoryRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { render } from '@testing-library/react';
-import { CarDetails, PageNotFound } from '..';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { render, screen } from '@testing-library/react';
+import { CarDetails } from '..';
 import { RecoilRoot } from 'recoil';
 import { mockCar } from '../../mock/mock';
 import React, { Suspense } from 'react';
@@ -13,15 +13,15 @@ describe('CarDetails', () => {
         json: () => mockCar,
       }),
     ) as jest.Mock;
-    const { findByRole } = render(
+    render(
       <MemoryRouter initialEntries={['/cars/12345']}>
         <Routes>
           <Route path='/cars/:stockNumber' element={<RecoilRoot><Suspense fallback={<div>loading...</div>}><CarDetails /></Suspense></RecoilRoot>}></Route>
         </Routes>
       </MemoryRouter>
     );
-    const article = await findByRole('article');
-    expect(article.querySelector('h2')?.textContent).toEqual('Fiat Croma');
-    expect(article.querySelector('p')?.textContent).toEqual('Stock # 12345 - 126592 km - Diesel - white');
+    const article = await screen.findByRole('article');
+    expect(article.childNodes[0]?.textContent).toEqual('Fiat Croma');
+    expect(article.childNodes[1]?.textContent).toEqual('Stock # 12345 - 126592 km - Diesel - white');
   });
 });

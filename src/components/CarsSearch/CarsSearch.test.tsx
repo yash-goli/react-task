@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { CarsSearch } from '..';
 import '@testing-library/jest-dom/extend-expect';
 import { MemoryRouter } from 'react-router-dom';
@@ -15,12 +15,12 @@ jest.mock('../../hooks', () => ({
 
 describe('CarsSearchView', () => {
   test('render filter component in serach view', async () => {
-    const { findByTestId } = render(<MemoryRouter><RecoilRoot><CarsSearch/></RecoilRoot></MemoryRouter>);
-    expect(await findByTestId('carsFilter')).toBeInTheDocument();
-    expect(await findByTestId('carColors')).toBeInTheDocument();
-    expect(await findByTestId('carManufacturers')).toBeInTheDocument();
-    expect(await findByTestId('filter')).toBeInTheDocument();
-    expect((await findByTestId('carColors')).children.length).toEqual(8);
-    expect((await findByTestId('carManufacturers')).children.length).toEqual(11);
+    render(<MemoryRouter><RecoilRoot><CarsSearch/></RecoilRoot></MemoryRouter>);
+    expect(await screen.findByTestId('carsFilter')).toBeInTheDocument();
+    expect(await screen.findByTestId('carColors')).toBeInTheDocument();
+    expect(await screen.findByTestId('carManufacturers')).toBeInTheDocument();
+    expect(await screen.findByTestId('filter')).toBeInTheDocument();
+    expect((await screen.findByTestId('carColors')).childNodes.length).toEqual(8);
+    expect((await screen.findByTestId('carManufacturers')).childNodes.length).toEqual(11);
   })
 });
